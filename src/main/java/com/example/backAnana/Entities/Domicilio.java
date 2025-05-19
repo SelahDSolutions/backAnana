@@ -16,5 +16,4 @@ public class Domicilio extends Base{
     private String calle;
     private int numero;
 
-
 }
