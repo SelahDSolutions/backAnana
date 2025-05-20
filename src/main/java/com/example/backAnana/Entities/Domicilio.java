@@ -1,5 +1,7 @@
 package com.example.backAnana.Entities;
 
+import com.example.backAnana.Entities.Enums.Localidad;
+import com.example.backAnana.Entities.Enums.Provincia;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;
@@ -16,5 +18,7 @@ public class Domicilio extends Base{
 
     private String calle;
     private int numero;
+    private Localidad localidad;
+    private Provincia provincia;
 
 }
