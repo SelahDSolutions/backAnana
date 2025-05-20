@@ -30,4 +30,10 @@ public class Producto extends Base {
     @JsonIgnoreProperties("productos")
     private Categoria categoria;
 
+    public Producto(String denominacion, String marca, String codigo, double precio) {
+        this.denominacion = denominacion;
+        this.marca = marca;
+        this.codigo = codigo;
+        this.precio = precio;
+    }
 }
