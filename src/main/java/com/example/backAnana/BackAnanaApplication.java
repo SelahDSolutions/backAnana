@@ -44,6 +44,7 @@ public class BackAnanaApplication {
 			Categoria libreria = Categoria.builder().denominacion("Articulos de libreria").build();
 
 			categoriaRepository.save(jugueteria);
+			categoriaRepository.save(libreria);
 
 			Producto bibliorato = Producto.builder()
 					.denominacion("Bibliorato The Pel")
