@@ -30,7 +30,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
         String encryptedPassword = encriptarClave(clave);
         logger.info("Encrypted password: {}", encryptedPassword);
         // Buscar al usuario en la base de datos con el nombre de usuario y la contraseña encriptada
-        User user = repository.findByNameAndPassword(usuario, encryptedPassword);
+        User user = repository.findByUsuarioAndClave(usuario, encryptedPassword);
         if (user != null) {
             logger.info("User found: {}", user.getUsuario());
         } else {
