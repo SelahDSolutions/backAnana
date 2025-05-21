@@ -26,6 +26,8 @@ public class VentaController extends BaseControllerImpl<Venta, VentaServiceImpl>
         super(service);
     }
 
+
+
     @GetMapping("/downloadExcel")
     public ResponseEntity<byte[]> downloadExcelVentas(
             @RequestParam(name = "fechaDesde") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaDesde,
