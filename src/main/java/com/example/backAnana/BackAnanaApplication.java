@@ -17,14 +17,14 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class BackAnanaApplication {
 
-	@Autowired
+	/*@Autowired
 	CategoriaRepository categoriaRepository;
 
 	@Autowired
 	UserRepository userRepository;
 
 	@Autowired
-	ProductoRepository productoRepository;
+	ProductoRepository productoRepository;*/
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackAnanaApplication.class, args);
@@ -35,7 +35,7 @@ public class BackAnanaApplication {
 	@Transactional
 	CommandLineRunner init(CategoriaRepository categoriaRepository, UserRepository userRepository, ProductoRepository productoRepository) {
 		return args -> {
-			User admin = User.builder().usuario("Admin").rol(RolesUsuario.ADMIN).build();
+			/*User admin = User.builder().usuario("Admin").rol(RolesUsuario.ADMIN).build();
 			admin.setClave("admin_123");
 
 			userRepository.save(admin);
@@ -103,7 +103,7 @@ public class BackAnanaApplication {
 
 			plasticola.setCategoria(libreria);
 
-			productoRepository.save(plasticola);
+			productoRepository.save(plasticola);*/
 
 		};
 	}

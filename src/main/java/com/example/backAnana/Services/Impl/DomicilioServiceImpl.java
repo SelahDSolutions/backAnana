@@ -7,12 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DomicilioServceImpl extends BaseServiceImpl<Domicilio, Long> implements DomicilioService {
+public class DomicilioServiceImpl extends BaseServiceImpl<Domicilio, Long> implements DomicilioService {
 
-    @Autowired
-    private DomicilioRepository repository;
-
-    public DomicilioServceImpl(DomicilioRepository repository) {
+    public DomicilioServiceImpl(DomicilioRepository repository) {
         super(repository);
     }
 
