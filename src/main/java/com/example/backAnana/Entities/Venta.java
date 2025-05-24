@@ -24,7 +24,7 @@ public class Venta extends Base{
     private FormaPago formaPago;
     private Double envio;
 
-    @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @Builder.Default
     @JsonIgnoreProperties("venta")
     private Set<DetalleVenta> detalleVentas = new HashSet<>();
@@ -32,5 +32,11 @@ public class Venta extends Base{
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
+
+    // Método auxiliar para agregar detalle y sincronizar la relación bidireccional
+    public void addDetalleVenta(DetalleVenta detalle) {
+        detalle.setVenta(this);
+        this.detalleVentas.add(detalle);
+    }
 
 }

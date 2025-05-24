@@ -14,6 +14,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @Table(name = "detalleVenta")
 public class DetalleVenta extends Base{
 
@@ -30,8 +31,8 @@ public class DetalleVenta extends Base{
     private Producto producto;
 
     //Método subtotal
-    public Double getSubTotal(){
-        if(producto != null){
+    public Double getSubTotal() {
+        if (producto != null && producto.getPrecio() != null) {
             return cantidad * producto.getPrecio();
         }
         return 0.0;

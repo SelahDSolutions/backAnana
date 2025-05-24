@@ -22,11 +22,10 @@ import java.time.LocalDate;
 @RequestMapping(path = "api/venta")
 public class VentaController extends BaseControllerImpl<Venta, VentaServiceImpl> {
 
-    private VentaController(VentaServiceImpl service) {
+    @Autowired
+    public VentaController(VentaServiceImpl service) {
         super(service);
     }
-
-
 
     @GetMapping("/downloadExcel")
     public ResponseEntity<byte[]> downloadExcelVentas(

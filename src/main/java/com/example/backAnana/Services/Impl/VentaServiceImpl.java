@@ -14,39 +14,37 @@ import java.util.List;
 @Service
 public class VentaServiceImpl extends BaseServiceImpl<Venta, Long> implements VentaService {
 
-    @Autowired
-    private VentaRepository repository;
-    @Autowired
-    private DetalleVentaService detalleVentaService;
+    private final VentaRepository repository;
+    private final DetalleVentaService detalleVentaService;
 
-    public VentaServiceImpl(VentaRepository repository) {
+    @Autowired
+    public VentaServiceImpl(VentaRepository repository, DetalleVentaService detalleVentaService) {
         super(repository);
+        this.repository = repository;
+        this.detalleVentaService = detalleVentaService;
     }
 
     @Transactional
-    public Venta calcularTotal(Long ventaId) throws Exception {
+    @Override
+    public Venta save(Venta venta) throws Exception {
         try {
-            // Buscar la venta por su ID
-            Venta venta = repository.findById(ventaId)
-                    .orElseThrow(() -> new Exception("Pedido no encontrado"));
-
-            // Obtener los detalles de la venta
-            List<DetalleVenta> detalles = detalleVentaService.findAllByVentaId(ventaId);
-            Double total = 0.0;
-
-            // Calcular el total sumando los subtotales de los detalles
-            if (detalles != null && !detalles.isEmpty()) {
-                total = detalles.stream()
-                        .mapToDouble(DetalleVenta::getSubTotal)
-                        .sum();
+            // Sincronizar relación bidireccional para cada detalle
+            for (DetalleVenta detalle : venta.getDetalleVentas()) {
+                detalle.setVenta(venta);
             }
 
-            // Establecer el total en la venta y guardarla
-            venta.setTotal(total);
-            return repository.save(venta);
+            // Calcular total antes de guardar
+            double total = venta.getDetalleVentas()
+                    .stream()
+                    .mapToDouble(DetalleVenta::getSubTotal)
+                    .sum();
 
-        } catch (Exception ex) {
-            throw new Exception("Error al calcular el total del pedido: " + ex.getMessage());
+            venta.setTotal(total + (venta.getEnvio() != null ? venta.getEnvio() : 0));
+
+            // Guardar venta junto con detalles (gracias a cascade ALL)
+            return repository.save(venta);
+        } catch (Exception e) {
+            throw new Exception("Error guardando la venta: " + e.getMessage());
         }
     }
 
