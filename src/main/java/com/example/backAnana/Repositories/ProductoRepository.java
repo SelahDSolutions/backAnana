@@ -14,4 +14,7 @@ public interface ProductoRepository extends BaseRepository<Producto, Long> {
     // Método para buscar por código
     Optional<Producto> findByCodigo(String codigo);
 
+    //Método para buscar por denominacion
+    Optional<Producto> findByDenominacion(String denominacion);
+
 }

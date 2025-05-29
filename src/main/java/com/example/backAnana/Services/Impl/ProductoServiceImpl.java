@@ -6,6 +6,8 @@ import com.example.backAnana.Services.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ProductoServiceImpl extends BaseServiceImpl<Producto, Long> implements ProductoService {
 
@@ -37,6 +39,19 @@ public class ProductoServiceImpl extends BaseServiceImpl<Producto, Long> impleme
                 throw new RuntimeException("El código de producto ya está en uso");
             }
         }
+    }
+
+    @Override
+    public Producto findByCodigo(String codigo) {
+        return repository.findByCodigo(codigo)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado con código: " + codigo));
+    }
+
+    // Buscar por denominación (nombre)
+    @Override
+    public Producto findByDenominacion(String denominacion) {
+        return repository.findByDenominacion(denominacion)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado con denominación: " + denominacion));
     }
 
 }

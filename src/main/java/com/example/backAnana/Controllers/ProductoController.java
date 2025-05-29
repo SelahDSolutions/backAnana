@@ -51,4 +51,26 @@ public class ProductoController extends BaseControllerImpl<Producto, ProductoSer
         }
     }
 
+    // 🔍 GET para buscar por código
+    @GetMapping("/codigo/{codigo}")
+    public ResponseEntity<?> buscarPorCodigo(@PathVariable String codigo) {
+        try {
+            Producto producto = service.findByCodigo(codigo);
+            return ResponseEntity.ok(producto);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    // 🔍 GET para buscar por nombre/denominación
+    @GetMapping("/nombre/{denominacion}")
+    public ResponseEntity<?> buscarPorDenominacion(@PathVariable String denominacion) {
+        try {
+            Producto producto = service.findByDenominacion(denominacion);
+            return ResponseEntity.ok(producto);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
 }

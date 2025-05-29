@@ -8,4 +8,6 @@ public interface ProductoService extends BaseService<Producto, Long> {
 
     void validarCodigoUnico(String codigo, Long id);
 
+    Producto findByCodigo(String codigo);
+    Producto findByDenominacion(String denominacion);
 }
