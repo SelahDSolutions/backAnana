@@ -8,13 +8,13 @@ import lombok.Setter;
 @Setter
 public class LoginResponse {
 
-    private Long userId;
+    private Long id;
     private String usuario;
     private String message;
     private RolesUsuario rol;
 
-    public LoginResponse(Long userId, String usuario, String message, RolesUsuario rol) {
-        this.userId = userId;
+    public LoginResponse(Long id, String usuario, String message, RolesUsuario rol) {
+        this.id = id;
         this.usuario = usuario;
         this.message = message;
         this.rol = rol;
