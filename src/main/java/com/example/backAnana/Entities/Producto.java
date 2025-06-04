@@ -22,6 +22,8 @@ public class Producto extends Base {
     private String codigo;
     private String imagen;
     private Double precio;
+    private Double costo;
+    private Double porcentaje;
     private int stock;
     private int cantidadVendida;
     private String descripcion;
@@ -37,4 +39,11 @@ public class Producto extends Base {
         this.codigo = codigo;
         this.precio = precio;
     }
+
+    public void calcularPrecio() {
+        if (costo != null && porcentaje != null) {
+            this.precio = costo + (costo * porcentaje / 100);
+        }
+    }
+
 }

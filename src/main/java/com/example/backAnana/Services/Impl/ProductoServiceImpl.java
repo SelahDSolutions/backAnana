@@ -42,6 +42,16 @@ public class ProductoServiceImpl extends BaseServiceImpl<Producto, Long> impleme
     }
 
     @Override
+    public Producto save(Producto producto) {
+        producto.calcularPrecio();
+        try {
+            return super.save(producto);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public Producto findByCodigo(String codigo) {
         return repository.findByCodigo(codigo)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado con código: " + codigo));

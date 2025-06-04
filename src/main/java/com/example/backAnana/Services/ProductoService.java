@@ -10,4 +10,5 @@ public interface ProductoService extends BaseService<Producto, Long> {
 
     Producto findByCodigo(String codigo);
     Producto findByDenominacion(String denominacion);
+
 }
