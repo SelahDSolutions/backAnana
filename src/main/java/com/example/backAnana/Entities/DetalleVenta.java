@@ -27,7 +27,7 @@ public class DetalleVenta extends Base{
 
     @ManyToOne
     @JoinColumn(name = "productoId")
-    @JsonIgnoreProperties("detalleVentas")
+    @JsonIgnoreProperties(value = {"detalleVentas"}, allowSetters = true)
     private Producto producto;
 
     //Método subtotal

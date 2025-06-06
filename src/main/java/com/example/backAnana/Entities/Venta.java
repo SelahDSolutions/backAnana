@@ -26,7 +26,7 @@ public class Venta extends Base{
 
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @Builder.Default
-    @JsonIgnoreProperties("venta")
+    @JsonIgnoreProperties(value = {"venta"}, allowSetters = true)
     private Set<DetalleVenta> detalleVentas = new HashSet<>();
 
     @ManyToOne
