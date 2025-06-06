@@ -1,5 +1,6 @@
 package com.example.backAnana.Entities;
 
+import com.example.backAnana.Entities.Enums.EstadoVenta;
 import com.example.backAnana.Entities.Enums.FormaPago;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -23,6 +24,7 @@ public class Venta extends Base{
     private Double total;
     private FormaPago formaPago;
     private Double envio;
+    private EstadoVenta estadoVenta;
 
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @Builder.Default
