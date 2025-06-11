@@ -79,4 +79,34 @@ public class VentaServiceImpl extends BaseServiceImpl<Venta, Long> implements Ve
         }
     }
 
+    @Override
+    @Transactional
+    public boolean delete(Long idVenta) throws Exception {
+        Venta venta = repository.findById(idVenta)
+                .orElseThrow(() -> new RuntimeException("Venta no encontrada"));
+
+        // Obtener los detalles de la venta
+        List<DetalleVenta> detalles = detalleVentaService.findAllByVentaId(idVenta);
+
+        for (DetalleVenta detalle : detalles) {
+            if (detalle.getProducto() != null) {
+                var producto = productoRepository.findById(detalle.getProducto().getId())
+                        .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+                // Devolver el stock del producto
+                producto.setStock(producto.getStock() + detalle.getCantidad());
+                // Restar la cantidad vendida
+                producto.setCantidadVendida(producto.getCantidadVendida() - detalle.getCantidad());
+                productoRepository.save(producto);
+            }
+
+            // Eliminar el detalle
+            detalleVentaService.delete(detalle.getId());
+        }
+
+        // Finalmente eliminar la venta
+        repository.delete(venta);
+        return true;
+    }
+
 }

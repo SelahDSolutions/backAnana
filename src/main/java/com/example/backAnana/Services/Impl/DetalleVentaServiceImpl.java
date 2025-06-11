@@ -39,6 +39,8 @@ public class DetalleVentaServiceImpl extends BaseServiceImpl<DetalleVenta, Long>
         if (producto != null && detalle.getCantidad() > 0) {
             // Devolver stock
             producto.setStock(producto.getStock() + detalle.getCantidad());
+            // Restar la cantidad vendida
+            producto.setCantidadVendida(producto.getCantidadVendida() - detalle.getCantidad());
             productoRepository.save(producto);
         }
 
