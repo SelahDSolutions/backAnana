@@ -88,17 +88,7 @@ public class VentaServiceImpl extends BaseServiceImpl<Venta, Long> implements Ve
         // Obtener los detalles de la venta
         List<DetalleVenta> detalles = detalleVentaService.findAllByVentaId(idVenta);
 
-        for (DetalleVenta detalle : detalles) {
-            if (detalle.getProducto() != null) {
-                var producto = productoRepository.findById(detalle.getProducto().getId())
-                        .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
-
-                // Devolver el stock del producto
-                producto.setStock(producto.getStock() + detalle.getCantidad());
-                // Restar la cantidad vendida
-                producto.setCantidadVendida(producto.getCantidadVendida() - detalle.getCantidad());
-                productoRepository.save(producto);
-            }
+        for (DetalleVenta detalle : detalles){
 
             // Eliminar el detalle
             detalleVentaService.delete(detalle.getId());
